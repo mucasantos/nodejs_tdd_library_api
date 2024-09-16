@@ -31,3 +31,8 @@
 
 [] Mostrar todos os emprestimos pendentes 
     * Com o nome do livro, nome do user, CPF, data de saida e data de retorno, ordenados pela data de retorno mais antiga.
+
+    OBS: O VSCODE "acha" que nao tem importacao.
+    Para o vsCOde entender que é um projeto e tem importacao. por isso criamos os jsconfig
+
+    https://code.visualstudio.com/docs/languages/jsconfig
