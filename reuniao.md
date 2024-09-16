@@ -36,3 +36,5 @@
     Para o vsCOde entender que é um projeto e tem importacao. por isso criamos os jsconfig
 
     https://code.visualstudio.com/docs/languages/jsconfig
+
+    
