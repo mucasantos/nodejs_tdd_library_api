@@ -1,11 +1,14 @@
 //Funcionamento basico do Jest
 
+const { Either } = require('../shared');
 const AppError = require('../shared/AppError');
 const cadastrarUsuarioUseCase = require('./cadastrar-usuario.usecase');
 
 describe('Cadastrar usuario UseCase', function () {
   const usuariosRepository = {
-    cadastrar: jest.fn()
+    cadastrar: jest.fn(),
+    existByCPF: jest.fn(),
+    existByEmail: jest.fn()
   };
   test('Deve poder cadastrar um usuário', async function () {
     const userDto = {
@@ -19,7 +22,7 @@ describe('Cadastrar usuario UseCase', function () {
     const sut = cadastrarUsuarioUseCase({ usuariosRepository });
     const output = await sut(userDto);
 
-    expect(output).toBeUndefined();
+    expect(output.right).toBeNull();
     expect(usuariosRepository.cadastrar).toHaveBeenCalledWith(userDto);
     expect(usuariosRepository.cadastrar).toHaveBeenCalledTimes(1);
   });
@@ -34,5 +37,48 @@ describe('Cadastrar usuario UseCase', function () {
     await expect(() => sut({})).rejects.toThrow(
       new AppError(AppError.parametrosObrigratoriosAusentes)
     );
+  });
+
+  test('Deve retornar um Either.left se o CPF já existir', async function () {
+    //Esse mock é porque preciso do retorno do repositorio q ainda nao existe
+    usuariosRepository.existByCPF.mockReturnValue(true);
+
+    const userDto = {
+      nome_completo: 'nome_valido',
+      CPF: 'cpf_ja_cadastrado',
+      endereco: 'endereco_valido',
+      email: 'email_valido',
+      telefone: 'telefone_valido'
+    };
+
+    const sut = cadastrarUsuarioUseCase({ usuariosRepository });
+    const output = await sut(userDto);
+
+    expect(output.right).toBeNull();
+    expect(output.left).toEqual(Either.valueAlreadyRegister('CPF'));
+    expect(usuariosRepository.existByCPF).toHaveBeenLastCalledWith(userDto.CPF);
+    expect(usuariosRepository.existByCPF).toHaveBeenCalledTimes(1);
+  });
+
+  test('Deve retornar um Either.left se o Email já existir', async function () {
+    //Esse mock é porque preciso do retorno do repositorio q ainda nao existe
+    usuariosRepository.existByEmail.mockReturnValue(true);
+    usuariosRepository.existByCPF.mockReturnValue(false); //PResico mockar este para pode "passar pra frente"
+
+    const userDto = {
+      nome_completo: 'nome_valido',
+      CPF: 'cpf_valido',
+      endereco: 'endereco_valido',
+      email: 'email_ja_cadastrado',
+      telefone: 'telefone_valido'
+    };
+
+    const sut = cadastrarUsuarioUseCase({ usuariosRepository });
+    const output = await sut(userDto);
+
+    expect(output.right).toBeNull();
+    expect(output.left).toEqual(Either.valueAlreadyRegister('Email'));
+    expect(usuariosRepository.existByEmail).toHaveBeenLastCalledWith(userDto.email);
+    expect(usuariosRepository.existByEmail).toHaveBeenCalledTimes(1);
   });
 });
