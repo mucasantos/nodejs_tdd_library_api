@@ -12,7 +12,8 @@ describe('Cadastrar usuario UseCase', function () {
       nome_completo: 'nome_valido',
       CPF: 'cpf_valido',
       endereco: 'endereco_valido',
-      email: 'email_valido'
+      email: 'email_valido',
+      telefone: '123123123'
     };
 
     const sut = cadastrarUsuarioUseCase({ usuariosRepository });
@@ -24,6 +25,14 @@ describe('Cadastrar usuario UseCase', function () {
   });
 
   test('Deve retonar um throw AppError se o usuariosRepository nao for fornecido', function () {
-    expect(() => cadastrarUsuarioUseCase({})).toThrow(new AppError(AppError.dependencias));
+    expect(() => cadastrarUsuarioUseCase({})).toThrow(new AppError(AppError.dependenciasAusentes));
+  });
+
+  test('Deve retornar um throw AppErro se os campos obrigatórios nao forem fornecidos', async function () {
+    const sut = cadastrarUsuarioUseCase({ usuariosRepository });
+
+    await expect(() => sut({})).rejects.toThrow(
+      new AppError(AppError.parametrosObrigratoriosAusentes)
+    );
   });
 });

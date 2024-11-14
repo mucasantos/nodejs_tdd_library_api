@@ -3,5 +3,6 @@ module.exports = class AppError extends Error {
     super(message);
     this.message = message;
   }
-  static dependencias = 'Alguma dependência não foi fornecida.';
+  static dependenciasAusentes = 'Alguma dependência não foi fornecida.';
+  static parametrosObrigratoriosAusentes = 'Alguma parametro obrigatorio não foi fornecida.';
 };
