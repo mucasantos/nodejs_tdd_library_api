@@ -36,4 +36,24 @@ describe('Emprestar livro UseCase', function () {
 
     expect(output.left).toBe(Either.dataRetornoMenorQueDataSaida);
   });
+
+  test('Não deve permitir o emprestimo de livro com o mesmo ISBN para o mesmo usuario antes que o livro anterior seja devolvido', async function () {
+    emprestimoRepository.existLivroISBNEmprestadoPendenteUsuario.mockResolvedValue(true);
+    const emprestarLivroDTO = {
+      usuario_id: 'qualquer_livro_id',
+      livro_id: 'qualquer_usuario_id',
+      data_saida: new Date('2024-02-16'),
+      data_retorno: new Date('2024-02-16')
+    };
+
+    const sut = emprestarLivrosUsecase({ emprestimoRepository });
+    const output = await sut(emprestarLivroDTO);
+
+    expect(output.left).toBe(Either.existLivroISBNEmprestadoPendenteUsuario);
+    expect(emprestimoRepository.existLivroISBNEmprestadoPendenteUsuario).toHaveBeenCalledWith({
+      livro_id: emprestarLivroDTO.livro_id,
+      usuario_id: emprestarLivroDTO.usuario_id
+    });
+    expect(emprestimoRepository.existLivroISBNEmprestadoPendenteUsuario).toHaveBeenCalledTimes(1);
+  });
 });

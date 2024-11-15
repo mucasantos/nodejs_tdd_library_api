@@ -20,11 +20,9 @@ module.exports = class Either {
     return { message: `${value} já cadastrado` };
   }
 
-  static dataRetornoMenorQueDataSaida() {
-    return { message: 'DAta de retorno menor do que a data de saida' };
-  }
+  static dataRetornoMenorQueDataSaida = { message: 'Data de retorno menor do que a data de saida' };
 
-  static existLivroISBNEmprestadoPendenteUsuario() {
-    return { message: 'Livro já emprestado ao usuario e ainda nao devolvido' };
-  }
+  static existLivroISBNEmprestadoPendenteUsuario = {
+    message: 'Livro já emprestado ao usuario e ainda nao devolvido'
+  };
 };
