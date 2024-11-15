@@ -17,15 +17,17 @@
 
 [x] Buscar um cadastro de usuário por CPF: retornar um user ou vazio
 
-[] Cadastrar um novo livro: ISBN deve ser único
+[x] Cadastrar um novo livro:
+[x] - ISBN deve ser único
 
-[] Buscar um livro por nome ou ISBN: Retornar os livros ou vazio
+[x] Buscar um livro por nome ou ISBN:
+[x] Retornar os livros ou vazio
 
-[] Emprestar um livro ao user:
-_ A data de retorno nao poder ser menor do que a data de saida
-_ Um user nao poder estar com mais de um livro com o mesmo ISBN ao mesmo tempo
-_ Um user poder estar com mais de um livro com ISBN diferentes ao mesmo tempo
-_ Ao cadastrar um emprestimo, sera enviado um email automaticamente informando o nome do livro, nome do user, cpf e data de saida
+[x] Emprestar um livro ao user:
+[x]_ A data de retorno nao poder ser menor do que a data de saida
+[x]_ Um user nao poder estar com mais de um livro com o mesmo ISBN ao mesmo tempo
+[x]_ Um user poder estar com mais de um livro com ISBN diferentes ao mesmo tempo
+[] _ Ao cadastrar um emprestimo, sera enviado um email automaticamente informando o nome do livro, nome do user, cpf e data de saida e data de retorno
 
 [] Devolver o livro emprestado \* Caso o usuário tenha atrasado, será gerada uma multa fixa de R$10,00
 
