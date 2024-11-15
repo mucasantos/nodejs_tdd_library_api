@@ -17,7 +17,7 @@
 
 [x] Buscar um cadastro de usuário por CPF: retornar um user ou vazio
 
-[x] Cadastrar um novo livro: ISBN deve ser único
+[] Cadastrar um novo livro: ISBN deve ser único
 
 [] Buscar um livro por nome ou ISBN: Retornar os livros ou vazio
 
@@ -36,7 +36,16 @@ _ Ao cadastrar um emprestimo, sera enviado um email automaticamente informando o
 
     https://code.visualstudio.com/docs/languages/jsconfig
 
-    ## Estruturas
+## Estruturas
 
-    ##UsuariosRepository
-    [] cadastrar: ({ nome_completo, CPF, telefone, endereco, email })=> Promise<void>
+## UsuariosRepository
+
+[] cadastrar: ({ nome_completo, CPF, telefone, endereco, email })=> Promise<void>
+[] existePorCPF (CPF)=>Promise<boolean>
+[] existePorEmail (email)=>Promise<boolean>
+
+## UsuariosRepository
+
+[] cadastrar: ({ nome, quantidade, autor, genero, ISBN })=> Promise<void>
+[] existePorISBN (ISBN)=>Promise<boolean>
+[] buscarPorNomeOuISBN (valor)=>Promise<array<Livro>>
