@@ -1,3 +1,5 @@
+const devolverLivroUsecase = require('./devolver-livro.usecase');
+
 describe('Devolver Livro UseCase', () => {
   const emprestimoRepository = {
     devolver: jest.fn()
@@ -5,10 +7,10 @@ describe('Devolver Livro UseCase', () => {
   test('Deve ser possivel devolver um livro sem multa', async () => {
     const devolverLivroDTO = {
       emprestimo_id: 'qualquer_id',
-      data_devoluca: new Date('2024-02-06')
+      data_devolucao: new Date('2024-02-06')
     };
 
-    const sut = devolverLivroUseCase({ emprestimoRepository });
+    const sut = devolverLivroUsecase({ emprestimoRepository });
     const output = await sut(devolverLivroDTO);
 
     expect(output.right).toBe('Multa por atraso: R$ 0');
