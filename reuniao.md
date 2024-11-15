@@ -13,9 +13,9 @@
 
 ## UsesCases (Regras de negócio)
 
-[] Cadastrar um novo usuário: CPF e eemail devem ser únicos
+[x] Cadastrar um novo usuário: CPF e eemail devem ser únicos
 
-[] Buscar um cadastro de usuário por CPF: retornar um user ou vazio
+[x] Buscar um cadastro de usuário por CPF: retornar um user ou vazio
 
 [] Cadastrar um novo livro: ISBN deve ser único
 
