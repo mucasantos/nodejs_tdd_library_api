@@ -48,6 +48,7 @@ describe('Buscar livros por nome ou ISBN UseCase', function () {
     expect(() => buscarLivrosPorNomeOuIsbnUsecase({})).toThrow(
       new AppError(AppError.dependenciasAusentes)
     );
+    n;
   });
 
   test('Deve retornar erro se campos obrigatorios nao forem enviados', async function () {
