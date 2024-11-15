@@ -27,9 +27,10 @@
 [x]_ A data de retorno nao poder ser menor do que a data de saida
 [x]_ Um user nao poder estar com mais de um livro com o mesmo ISBN ao mesmo tempo
 [x]_ Um user poder estar com mais de um livro com ISBN diferentes ao mesmo tempo
-[] _ Ao cadastrar um emprestimo, sera enviado um email automaticamente informando o nome do livro, nome do user, cpf e data de saida e data de retorno
+[x] _ Ao cadastrar um emprestimo, sera enviado um email automaticamente informando o nome do livro, nome do user, cpf e data de saida e data de retorno
 
-[] Devolver o livro emprestado \* Caso o usuário tenha atrasado, será gerada uma multa fixa de R$10,00
+[] Devolver o livro emprestado sem multa
+[] Caso o usuário tenha atrasado, será gerada uma multa fixa de R$10,00
 
 [] Mostrar todos os emprestimos pendentes \* Com o nome do livro, nome do user, CPF, data de saida e data de retorno, ordenados pela data de retorno mais antiga.
 
@@ -46,8 +47,13 @@
 [] existePorCPF (CPF)=>Promise<boolean>
 [] existePorEmail (email)=>Promise<boolean>
 
-## UsuariosRepository
+## livrosRepository
 
 [] cadastrar: ({ nome, quantidade, autor, genero, ISBN })=> Promise<void>
 [] existePorISBN (ISBN)=>Promise<boolean>
 [] buscarPorNomeOuISBN (valor)=>Promise<array<Livro>>
+
+## emprestimoRepository
+
+[] emprestar({livro_id, usuario_id, data_saida, data_retorno}) => Promise<void>
+[] buscarEmprestimoComLivroComUserPorID: id => Promise<Emprestimo> && {Livro: {noem}, Usuario: {nome, CPF, email}}
