@@ -57,3 +57,4 @@
 
 [] emprestar({livro_id, usuario_id, data_saida, data_retorno}) => Promise<void>
 [] buscarEmprestimoComLivroComUserPorID: id => Promise<Emprestimo> && {Livro: {noem}, Usuario: {nome, CPF, email}}
+[] devolver: ({emprestimo_id, data_devolucao}) => Promise<{data_retorno}>
