@@ -1,3 +1,4 @@
+const { AppError } = require('../shared');
 const buscarEmprestimosPendentesUsecase = require('./buscar-emprestimos-pendentes.usecase');
 
 describe('', function () {
@@ -14,7 +15,9 @@ describe('', function () {
         },
         livro: {
           nome: 'qualquer_nome_livro'
-        }
+        },
+        data_saida: '2024-10-01',
+        data_retorno: '2024-10-02'
       },
       {
         usuario: {
@@ -23,7 +26,9 @@ describe('', function () {
         },
         livro: {
           nome: 'qualquer_nome_livro_valido'
-        }
+        },
+        data_saida: '2024-10-01',
+        data_retorno: '2024-10-15'
       }
     ]);
 
@@ -32,5 +37,11 @@ describe('', function () {
 
     expect(output.right).toHaveLength(2);
     expect(output.right[0].usuario.nome).toBe('qualquer_nome');
+  });
+
+  test('Deve retornar um AppError caso o emprestimoRepository nao seja passado', () => {
+    expect(() => buscarEmprestimosPendentesUsecase({})).toThrow(
+      new AppError(AppError.dependenciasAusentes)
+    );
   });
 });
