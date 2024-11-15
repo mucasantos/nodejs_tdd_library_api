@@ -3,6 +3,8 @@ const { Either, AppError } = require('../shared');
 module.exports = function devolverLivroUseCase({ emprestimoRepository }) {
   if (!emprestimoRepository) throw new AppError(AppError.dependenciasAusentes);
   return async function ({ emprestimo_id, data_devolucao }) {
+    if (!emprestimo_id || !data_devolucao)
+      throw new AppError(AppError.parametrosObrigratoriosAusentes);
     const { data_retorno } = await emprestimoRepository.devolver({
       emprestimo_id,
       data_devolucao
@@ -10,8 +12,6 @@ module.exports = function devolverLivroUseCase({ emprestimoRepository }) {
 
     const verificarDataRetorno =
       new Date(data_retorno).getTime() > new Date(data_devolucao).getTime();
-
-    console.log(verificarDataRetorno);
 
     const verificarMulta = verificarDataRetorno
       ? 'Multa por atraso: R$ 10,00'

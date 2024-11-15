@@ -42,4 +42,12 @@ describe('Devolver Livro UseCase', () => {
   test('Deve devolver um throw AppError caso o repositorio nao seja enviado', () => {
     expect(() => devolverLivroUsecase({})).toThrow(new AppError(AppError.dependenciasAusentes));
   });
+
+  test('Deve retornar um throw AppError caso algum campo nao seja fornecido', async () => {
+    const sut = devolverLivroUsecase({ emprestimoRepository });
+
+    await expect(() => sut({})).rejects.toThrow(
+      new AppError(AppError.parametrosObrigratoriosAusentes)
+    );
+  });
 });
