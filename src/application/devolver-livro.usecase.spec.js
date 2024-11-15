@@ -24,7 +24,7 @@ describe('Devolver Livro UseCase', () => {
 
   test('Deve devolver um livro com multa', async () => {
     emprestimoRepository.devolver.mockResolvedValue({
-      data_retorno: new Date('2024-02-07')
+      data_retorno: new Date('2024-02-05')
     });
     const devolverLivroDTO = {
       emprestimo_id: 'qualquer_id',
