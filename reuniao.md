@@ -17,7 +17,7 @@
 
 [x] Buscar um cadastro de usuário por CPF: retornar um user ou vazio
 
-[] Cadastrar um novo livro: ISBN deve ser único
+[x] Cadastrar um novo livro: ISBN deve ser único
 
 [] Buscar um livro por nome ou ISBN: Retornar os livros ou vazio
 

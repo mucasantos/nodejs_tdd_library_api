@@ -28,3 +28,7 @@ Esta é uma API para gerenciar o sistema de empréstimo de livros de uma bibliot
    ```bash
    git clone https://github.com/mucasantos/nodejs_tdd_library_api
    ```
+
+## Importante
+
+Os testes de UseCase focam na entrada e saída
