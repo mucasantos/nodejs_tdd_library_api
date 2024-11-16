@@ -5,7 +5,16 @@ const usuariosRepository = function () {
     await typeormUsuarioRepository.save({ nome_completo, CPF, telefone, endereco, email });
   };
 
-  return { cadastrar };
+  const buscarPorCPF = async function (CPF) {
+    const usuario = typeormUsuarioRepository.findOne({
+      where: {
+        CPF
+      }
+    });
+    return usuario;
+  };
+
+  return { cadastrar, buscarPorCPF };
 };
 
 module.exports = { usuariosRepository, typeormUsuarioRepository };
