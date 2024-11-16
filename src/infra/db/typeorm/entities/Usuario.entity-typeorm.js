@@ -16,7 +16,7 @@ module.exports = new EntitySchema({
       type: 'varchar',
       unique: true
     },
-    endereceo: {
+    endereco: {
       type: 'varchar'
     },
     telefone: {
