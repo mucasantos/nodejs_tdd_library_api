@@ -128,4 +128,14 @@ describe('Emprestimos Repository Typeorm', function () {
     });
     expect(existEmprestimoPendente).toBe(true);
   });
+  test('Deve retornar false se nao existir um emprestimo pendente para o usuario e o livro', async () => {
+    const usuario = await typeormUsuarioRepository.save(usuarioDTO);
+    const livro = await typeormLivrosRepository.save(livroDTO);
+
+    const existEmprestimoPendente = await sut.existeLivroISBNEmprestadoPendenteUsuario({
+      livro_id: livro.id,
+      usuario_id: usuario.id
+    });
+    expect(existEmprestimoPendente).toBe(false);
+  });
 });
