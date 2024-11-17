@@ -13,8 +13,12 @@ const usuariosRepository = function () {
     });
     return usuario;
   };
+  const existPorCPF = async function (CPF) {
+    const usuario = await typeormUsuarioRepository.count({ where: { CPF } });
+    return usuario === 0 ? false : true;
+  };
 
-  return { cadastrar, buscarPorCPF };
+  return { cadastrar, buscarPorCPF, existPorCPF };
 };
 
 module.exports = { usuariosRepository, typeormUsuarioRepository };
