@@ -20,6 +20,9 @@ module.exports = class Either {
     return { message: `${value} já cadastrado` };
   }
 
+  fold(leftFn, rightFn) {
+    return this.left !== null ? leftFn(this.left) : rightFn(this.right);
+  }
   static dataRetornoMenorQueDataSaida = { message: 'Data de retorno menor do que a data de saida' };
 
   static existLivroISBNEmprestadoPendenteUsuario = {
