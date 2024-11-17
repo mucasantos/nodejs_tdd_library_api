@@ -29,4 +29,11 @@ describe('Livros Repository TypeORM', function () {
 
     expect(existePorISBN).toBe(true);
   });
+
+  test('DEve retornar false se existir um livro por ISBN', async () => {
+    await typeormLivrosRepository.save(livroDTO);
+    const existePorISBN = await sut.existePorISBN('ISBN_invalido');
+
+    expect(existePorISBN).toBe(false);
+  });
 });
