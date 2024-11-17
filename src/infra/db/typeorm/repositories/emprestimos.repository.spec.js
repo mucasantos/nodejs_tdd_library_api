@@ -1,3 +1,4 @@
+const { existLivroISBNEmprestadoPendenteUsuario } = require('../../../../shared/Either');
 const { emprestimosRepository, typeormEmprestimoRepository } = require('./emprestimos.repository');
 const { typeormLivrosRepository } = require('./livros.repository');
 const { typeormUsuarioRepository } = require('./usuarios.repository');
@@ -108,5 +109,23 @@ describe('Emprestimos Repository Typeorm', function () {
     expect(emprestimosPendentes[0].data_devolucao).toBeUndefined();
     expect(emprestimosPendentes[0].usuario.nome_completo).toBe('nome_valido');
     expect(emprestimosPendentes[0].livro.nome).toBe('nome_valido');
+  });
+
+  test('Deve retornar true se existir um emprestimo pendente para o usuario e o livro', async () => {
+    const usuario = await typeormUsuarioRepository.save(usuarioDTO);
+    const livro = await typeormLivrosRepository.save(livroDTO);
+
+    await typeormEmprestimoRepository.save({
+      usuario_id: usuario.id,
+      livro_id: livro.id,
+      data_saida: '2024-01-26',
+      data_retorno: '2024-01-26'
+    });
+
+    const existEmprestimoPendente = await sut.existeLivroISBNEmprestadoPendenteUsuario({
+      livro_id: livro.id,
+      usuario_id: usuario.id
+    });
+    expect(existEmprestimoPendente).toBe(true);
   });
 });
