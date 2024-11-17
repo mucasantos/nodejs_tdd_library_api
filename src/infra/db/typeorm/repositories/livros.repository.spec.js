@@ -36,4 +36,13 @@ describe('Livros Repository TypeORM', function () {
 
     expect(existePorISBN).toBe(false);
   });
+
+  test('Deve retornar um livro completo se buscar por nome', async function () {
+    await typeormLivrosRepository.save(livroDTO);
+
+    const buscarPorNomeOuISBN = await sut.buscarPorNomeOuISBN('nome_valido');
+
+    expect(buscarPorNomeOuISBN).toHaveLength(1);
+    expect(buscarPorNomeOuISBN[0].nome).toBe('nome_valido');
+  });
 });
