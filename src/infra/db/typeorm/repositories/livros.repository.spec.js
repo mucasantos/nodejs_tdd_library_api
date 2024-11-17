@@ -54,4 +54,9 @@ describe('Livros Repository TypeORM', function () {
     expect(buscarPorISBN).toHaveLength(1);
     expect(buscarPorISBN[0].ISBN).toBe('ISBN_valido');
   });
+  test('Deve retornar um array vazio se buscar por nome ou isbn e nao encontrar', async () => {
+    const buscarPorISBN = await sut.buscarPorNomeOuISBN('valor_valido');
+
+    expect(buscarPorISBN).toHaveLength(0);
+  });
 });
