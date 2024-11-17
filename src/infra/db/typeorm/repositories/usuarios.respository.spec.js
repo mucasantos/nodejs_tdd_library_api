@@ -43,4 +43,12 @@ describe('Usuarios Repository', function () {
 
     expect(existPorCPF).toBe(true);
   });
+
+  test('Deve retornar false se NAO existir um user por email', async () => {
+    await typeormUsuarioRepository.save(usuarioDto);
+
+    const existPorCPF = await sut.existPorCPF('CPF_invalido');
+
+    expect(existPorCPF).toBe(false);
+  });
 });
