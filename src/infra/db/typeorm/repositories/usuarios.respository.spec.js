@@ -59,4 +59,11 @@ describe('Usuarios Repository', function () {
 
     expect(existPorEmail).toBe(true);
   });
+  test('Deve retornar false se NAO existir um user por email', async () => {
+    await typeormUsuarioRepository.save(usuarioDto);
+
+    const existPorEmail = await sut.existPorEmail('email_invalido');
+
+    expect(existPorEmail).toBe(false);
+  });
 });
