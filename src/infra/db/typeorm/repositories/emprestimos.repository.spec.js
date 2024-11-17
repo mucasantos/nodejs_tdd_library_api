@@ -51,4 +51,24 @@ describe('Emprestimos Repository Typeorm', function () {
 
     expect(devolver.data_retorno).toBe(emprestimo.data_retorno);
   });
+
+  test('Deve atualizar a data de devolucao salva no DB corretamente', async () => {
+    const usuario = await typeormUsuarioRepository.save(usuarioDTO);
+    const livro = await typeormLivrosRepository.save(livroDTO);
+    const emprestimo = await typeormEmprestimoRepository.save({
+      usuario_id: usuario.id,
+      livro_id: livro.id,
+      data_saida: '2024-01-26',
+      data_retorno: '2024-01-28'
+    });
+
+    const devolver = await sut.devolver({
+      emprestimo_id: emprestimo.id,
+      data_devolucao: '2024-01-26'
+    });
+    const buscarEmpresitimoPorID = await typeormEmprestimoRepository.findOneBy({
+      id: emprestimo.id
+    });
+    expect(buscarEmpresitimoPorID.data_devolucao).toBe('2024-01-26');
+  });
 });
