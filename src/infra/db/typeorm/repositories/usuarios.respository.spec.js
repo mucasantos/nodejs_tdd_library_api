@@ -31,4 +31,11 @@ describe('Usuarios Repository', function () {
     expect(buscarPorCPFCadastrado.id).toBeDefined();
     expect(buscarPorCPFCadastrado.nome_completo).toBe('nome_valido');
   });
+
+  test('Deve retornar null de o usuario com cpf nao existir', async () => {
+    const sut = usuariosRepository();
+
+    const buscarPorCPFCadastrado = await sut.buscarPorCPF('CPF_nao_Cadastrado');
+    expect(buscarPorCPFCadastrado).toBeNull();
+  });
 });
