@@ -36,7 +36,7 @@ describe('Usuarios Repository', function () {
     expect(buscarPorCPFCadastrado).toBeNull();
   });
 
-  test('Deve retornar true se existir um user por email', async () => {
+  test('Deve retornar true se existir um user por CPF', async () => {
     await typeormUsuarioRepository.save(usuarioDto);
 
     const existPorCPF = await sut.existPorCPF('CPF_valido');
@@ -50,5 +50,13 @@ describe('Usuarios Repository', function () {
     const existPorCPF = await sut.existPorCPF('CPF_invalido');
 
     expect(existPorCPF).toBe(false);
+  });
+
+  test('Deve retornar true se existir um user por email', async () => {
+    await typeormUsuarioRepository.save(usuarioDto);
+
+    const existPorEmail = await sut.existPorEmail('email_valido');
+
+    expect(existPorEmail).toBe(true);
   });
 });
