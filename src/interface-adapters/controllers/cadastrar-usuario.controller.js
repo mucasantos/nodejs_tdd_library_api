@@ -11,7 +11,7 @@ const zodValidator = z.object({
     .string({
       required_error: ' CPF é obrigatório'
     })
-    .refine((value) => /ˆ([0-9]{3}\.?[0-9]{3}\.[0-9]{3}\-?[0-9]{2})$/.test(value)),
+    .refine((value) => /^([0-9]{3}\.?[0-9]{3}\.[0-9]{3}\-?[0-9]{2})$/.test(value)),
   endereco: z.string({
     required_error: 'Endereço obrigatório'
   }),
@@ -34,7 +34,7 @@ module.exports = async function cadastrarUsuarioController({
   cadastrarUsuarioUseCase,
   httpRequest
 }) {
-  if (!cadastrarUsuarioUseCase || !httpRequest || httpResponse) {
+  if (!cadastrarUsuarioUseCase || !httpRequest || !httpResponse) {
     throw new AppError(AppError.dependenciasAusentes);
   }
   const { nome_completo, CPF, endereco, telefone, email } = zodValidator.parse(httpRequest.body);
