@@ -1,3 +1,4 @@
+const { AppError } = require('../../shared');
 const httpResponse = require('../../shared/helpers/http.response');
 const { z } = require('zod');
 
@@ -12,6 +13,9 @@ module.exports = async function buscarUsuarioPorCPFController({
   buscarUsuarioPorCPFUseCase,
   httpRequest
 }) {
+  if (!buscarUsuarioPorCPFUseCase || !httpRequest || !httpRequest.params) {
+    throw new AppError(AppError.dependenciasAusentes);
+  }
   const { CPF } = zodValidator.parse(httpRequest.params);
   const output = await buscarUsuarioPorCPFUseCase({ CPF });
 
