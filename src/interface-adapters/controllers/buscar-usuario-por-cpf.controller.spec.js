@@ -1,3 +1,4 @@
+const { ZodError } = require('zod');
 const { Either, AppError } = require('../../shared');
 const httpResponse = require('../../shared/helpers/http.response');
 const buscarUsuarioPorCpfController = require('./buscar-usuario-por-cpf.controller');
@@ -51,5 +52,14 @@ describe('Buscar usuario por CPF Controller', function () {
     expect(() => buscarUsuarioPorCpfController({})).rejects.toThrow(
       new AppError(AppError.dependenciasAusentes)
     );
+  });
+
+  test('Deve retornar um erro no zodValidator se os campos obrigatorios nao forem fornecidos', () => {
+    const httpRequest = {
+      params: {}
+    };
+    expect(() =>
+      buscarUsuarioPorCpfController({ buscarUsuarioPorCPFUseCase, httpRequest })
+    ).rejects.toBeInstanceOf(ZodError);
   });
 });
