@@ -3,7 +3,7 @@ const { Either, AppError } = require('../../shared');
 const httpResponse = require('../../shared/helpers/http.response');
 const cadastrarLivroController = require('./cadastrar-livro.controller');
 
-describe('Cadastrar livro Controller', async function () {
+describe('Cadastrar livro Controller', function () {
   const cadastrarLivroUseCase = jest.fn();
 
   test('Deve retornar um httpREsponse 201 e null se o livro for cadastrado com sucesso', async () => {
