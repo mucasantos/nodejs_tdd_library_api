@@ -1,4 +1,5 @@
-const { Either } = require('../../shared');
+const { ZodError } = require('zod');
+const { Either, AppError } = require('../../shared');
 const httpResponse = require('../../shared/helpers/http.response');
 const emprestarLivroController = require('./emprestar-livro-controller');
 
@@ -51,5 +52,21 @@ describe('Emprestar livro Controller', function () {
       data_retorno: expect.any(Date)
     });
     expect(emprestarLivroUseCase).toHaveBeenCalledTimes(1);
+  });
+
+  test('Deve retornar um erro de o emprestarlivro usecase e o httpReq nao seja fornecido', () => {
+    expect(() => emprestarLivroController({})).rejects.toThrow(
+      new AppError(AppError.dependenciasAusentes)
+    );
+  });
+
+  test('Deve retornar erro do Zod se nao enviar algum campo obrigatorio', () => {
+    const httpRequest = {
+      body: {}
+    };
+
+    expect(() =>
+      emprestarLivroController({ emprestarLivroUseCase, httpRequest })
+    ).rejects.toBeInstanceOf(ZodError);
   });
 });
