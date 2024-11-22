@@ -1,17 +1,30 @@
 const typeorm = require('typeorm');
-const LivroEntityTypeorm = require('./entities/Livro.entity-typeorm');
-const EmprestimoEntityTypeorm = require('./entities/Emprestimo.entity-typeorm');
+const { resolve } = require('path');
 
-const typeormServer = new typeorm.DataSource({
-  type: 'sqlite',
-  database: 'db.sqlite',
-  synchronize: true,
-  dropSchema: true,
-  entities: [
-    require('./entities/Usuario.entity-typeorm'),
-    LivroEntityTypeorm,
-    EmprestimoEntityTypeorm
-  ]
-});
+let typeormServer;
+
+if (process.env.NODE_ENV === 'test') {
+  console.log(__dirname);
+
+  typeormServer = new typeorm.DataSource({
+    type: 'sqlite',
+    database: 'db.sqlite',
+    synchronize: true,
+    dropSchema: true,
+    entities: [resolve(__dirname, 'entities/*.entity-typeorm.js')]
+  });
+} else if (process.env.NODE_ENV === 'integration') {
+  typeormServer = new typeorm.DataSource({
+    type: 'postgres',
+    host: 'localhost',
+    database: 'biblioteca_test',
+    synchronize: true,
+    port: 5432,
+    username: 'postgres',
+    password: 'postgres',
+
+    entities: [resolve(__dirname, 'entities/*.entity-typeorm.js')]
+  });
+}
 
 module.exports = { typeormServer };
