@@ -2,10 +2,10 @@ const { ZodError } = require('zod');
 const { Either, AppError } = require('../../shared');
 const httpResponse = require('../../shared/helpers/http.response');
 const buscarLivroPorNomeOuISBNController = require('./buscar-livro-por-nome-ou-isbn');
-describe('Buscar licro por nome ou ISBN Controller', function () {
+describe('Buscar livro por nome ou ISBN Controller', function () {
   const buscarLivroPorNomeOuISBNUseCase = jest.fn();
 
-  test('Deve retornar um httpRespnse e os licros se forem encontrados com o valor informado', async () => {
+  test('Deve retornar um httpRespnse e os livros se forem encontrados com o valor informado', async () => {
     const livroDTO = [
       {
         id: 'qualquer_id',
