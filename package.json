@@ -4,6 +4,7 @@
   "description": "Projeto de uma biblioteca ",
   "main": "index.js",
   "scripts": {
+    "dev": "node --watch ./src/main/api/server.js",
     "test": "jest --runInBand"
   },
   "author": "",
@@ -14,6 +15,7 @@
     "sqlite3": "^5.1.7"
   },
   "dependencies": {
+    "express": "^4.21.1",
     "typeorm": "^0.3.20",
     "zod": "^3.23.8"
   }
