@@ -40,18 +40,27 @@ describe('Livros Routes', function () {
 
   test('Deve ser possível buscar um livro por ISBN', async () => {
     const livroDTO = {
-      nome: 'nome_valido1',
+      nome: 'nome_valido',
       quantidade: 3,
-      autor: 'autor_valido1',
-      genero: 'genero_valido1',
-      ISBN: 'ISBN_valido1'
+      autor: 'autor_valido',
+      genero: 'genero_valido',
+      ISBN: 'ISBN_valido'
     };
-    await typeormLivrosRepository.save(livroDTO);
 
-    const { statusCode, body } = await request(app).get('/livros').query({ valor: 'ISBN_valido1' });
+    //Aqui não tem o save, pois este teste está lendo o livro que foi salvo no teste anterior!
+    const { statusCode, body } = await request(app).get('/livros').query({ valor: 'ISBN_valido' });
 
     expect(statusCode).toBe(200);
     expect(body).toHaveLength(1);
     expect(body[0]).toEqual(expect.objectContaining(livroDTO));
+  });
+  test('DEve retornar um array vazio se buscar por nopme ou isbn e nao encontrar', async () => {
+    //Aqui não tem o save, pois este teste está lendo o livro que foi salvo no teste anterior!
+    const { statusCode, body } = await request(app)
+      .get('/livros')
+      .query({ valor: 'ISBN_qualquer' });
+
+    expect(statusCode).toBe(200);
+    expect(body).toHaveLength(0);
   });
 });
