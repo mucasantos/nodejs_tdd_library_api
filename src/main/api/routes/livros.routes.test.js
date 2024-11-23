@@ -37,4 +37,21 @@ describe('Livros Routes', function () {
     expect(body).toHaveLength(1);
     expect(body[0]).toEqual(expect.objectContaining(livroDTO));
   });
+
+  test('Deve ser possível buscar um livro por ISBN', async () => {
+    const livroDTO = {
+      nome: 'nome_valido1',
+      quantidade: 3,
+      autor: 'autor_valido1',
+      genero: 'genero_valido1',
+      ISBN: 'ISBN_valido1'
+    };
+    await typeormLivrosRepository.save(livroDTO);
+
+    const { statusCode, body } = await request(app).get('/livros').query({ valor: 'ISBN_valido1' });
+
+    expect(statusCode).toBe(200);
+    expect(body).toHaveLength(1);
+    expect(body[0]).toEqual(expect.objectContaining(livroDTO));
+  });
 });
