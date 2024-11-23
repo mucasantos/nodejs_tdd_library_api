@@ -4,13 +4,13 @@ const {
 } = require('../../../infra/db/typeorm/repositories/usuarios.repository');
 const buscarUsuarioPorCpfController = require('../../../interface-adapters/controllers/buscar-usuario-por-cpf.controller');
 
-module.exports = async function buscarUsuarioPorCPFCompose({ httpRequest }) {
-  const usurioRepositoryFn = usuariosRepository();
+module.exports = async function buscarUsuarioPorCPFCompose(httpRequest) {
+  const usuarioRepositoryFn = usuariosRepository();
   const buscarUsuarioPorCPFUseCaseFn = buscarUsuarioPorCpfUsecase({
-    usuariosRepository: usurioRepositoryFn
+    userRepository: usuarioRepositoryFn
   });
   const controller = await buscarUsuarioPorCpfController({
-    buscarUsuarioPorCpfUseCase: buscarUsuarioPorCPFUseCaseFn,
+    buscarUsuarioPorCPFUseCase: buscarUsuarioPorCPFUseCaseFn,
     httpRequest
   });
 
