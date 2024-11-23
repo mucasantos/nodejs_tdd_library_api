@@ -9,7 +9,7 @@ module.exports = async function cadastrarUsuarioCompose(httpRequest) {
   const cadastrarUsuarioUseCaseFn = cadastrarUsuarioUsecase({
     usuariosRepository: usuariosRepositoryFn
   });
-  const controller = cadastrarUsuarioController({
+  const controller = await cadastrarUsuarioController({
     cadastrarUsuarioUseCase: cadastrarUsuarioUseCaseFn,
     httpRequest
   });

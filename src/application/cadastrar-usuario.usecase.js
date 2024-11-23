@@ -7,10 +7,10 @@ module.exports = function cadastrarUsuarioUseCase({ usuariosRepository }) {
     const checkCampos = nome_completo && CPF && telefone && endereco && email;
     if (!checkCampos) throw new AppError(AppError.parametrosObrigratoriosAusentes);
 
-    const checkUserCPF = await usuariosRepository.existByCPF(CPF);
+    const checkUserCPF = await usuariosRepository.existPorCPF(CPF);
     if (checkUserCPF) return Either.Left(Either.valueAlreadyRegister('CPF'));
 
-    const checkUserEmail = await usuariosRepository.existByEmail(email);
+    const checkUserEmail = await usuariosRepository.existPorEmail(email);
     if (checkUserEmail) return Either.Left(Either.valueAlreadyRegister('Email'));
 
     await usuariosRepository.cadastrar({

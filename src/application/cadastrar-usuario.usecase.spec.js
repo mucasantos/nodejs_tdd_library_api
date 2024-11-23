@@ -7,8 +7,8 @@ const cadastrarUsuarioUseCase = require('./cadastrar-usuario.usecase');
 describe('Cadastrar usuario UseCase', function () {
   const usuariosRepository = {
     cadastrar: jest.fn(),
-    existByCPF: jest.fn(),
-    existByEmail: jest.fn()
+    existPorCPF: jest.fn(),
+    existPorEmail: jest.fn()
   };
   test('Deve poder cadastrar um usuário', async function () {
     const userDto = {
@@ -41,7 +41,7 @@ describe('Cadastrar usuario UseCase', function () {
 
   test('Deve retornar um Either.left se o CPF já existir', async function () {
     //Esse mock é porque preciso do retorno do repositorio q ainda nao existe
-    usuariosRepository.existByCPF.mockReturnValue(true);
+    usuariosRepository.existPorCPF.mockReturnValue(true);
 
     const userDto = {
       nome_completo: 'nome_valido',
@@ -56,14 +56,14 @@ describe('Cadastrar usuario UseCase', function () {
 
     expect(output.right).toBeNull();
     expect(output.left).toEqual(Either.valueAlreadyRegister('CPF'));
-    expect(usuariosRepository.existByCPF).toHaveBeenLastCalledWith(userDto.CPF);
-    expect(usuariosRepository.existByCPF).toHaveBeenCalledTimes(1);
+    expect(usuariosRepository.existPorCPF).toHaveBeenLastCalledWith(userDto.CPF);
+    expect(usuariosRepository.existPorCPF).toHaveBeenCalledTimes(1);
   });
 
   test('Deve retornar um Either.left se o Email já existir', async function () {
     //Esse mock é porque preciso do retorno do repositorio q ainda nao existe
-    usuariosRepository.existByEmail.mockReturnValue(true);
-    usuariosRepository.existByCPF.mockReturnValue(false); //PResico mockar este para pode "passar pra frente"
+    usuariosRepository.existPorEmail.mockReturnValue(true);
+    usuariosRepository.existPorCPF.mockReturnValue(false); //PResico mockar este para pode "passar pra frente"
 
     const userDto = {
       nome_completo: 'nome_valido',
@@ -78,7 +78,7 @@ describe('Cadastrar usuario UseCase', function () {
 
     expect(output.right).toBeNull();
     expect(output.left).toEqual(Either.valueAlreadyRegister('Email'));
-    expect(usuariosRepository.existByEmail).toHaveBeenLastCalledWith(userDto.email);
-    expect(usuariosRepository.existByEmail).toHaveBeenCalledTimes(1);
+    expect(usuariosRepository.existPorEmail).toHaveBeenLastCalledWith(userDto.email);
+    expect(usuariosRepository.existPorEmail).toHaveBeenCalledTimes(1);
   });
 });

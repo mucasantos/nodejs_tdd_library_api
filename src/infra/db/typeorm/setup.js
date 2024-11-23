@@ -19,10 +19,9 @@ if (process.env.NODE_ENV === 'test') {
     host: 'localhost',
     database: 'biblioteca_test',
     synchronize: true,
-    port: 5432,
+    port: 5433,
     username: 'postgres',
     password: 'postgres',
-
     entities: [resolve(__dirname, 'entities/*.entity-typeorm.js')]
   });
 }
