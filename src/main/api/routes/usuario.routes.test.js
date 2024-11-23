@@ -58,4 +58,12 @@ describe('Usuarios Routes', function () {
     expect(statusCode).toBe(200);
     expect(body).toBeNull();
   });
+
+  test('Deve verificar se o CPF foi passado corretamente para o params', async () => {
+    const { statusCode, body } = await request(app).get('/usuarios/cpf/1');
+    expect(statusCode).toBe(400);
+    expect(body.error.fieldErrors).toEqual({
+      CPF: ['CPF inválido']
+    });
+  });
 });
