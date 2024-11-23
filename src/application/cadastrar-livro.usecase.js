@@ -9,7 +9,7 @@ module.exports = function cadastrarLivroUseCase({ livrosRepository }) {
     if (!checkCampos) {
       throw new AppError(AppError.parametrosObrigratoriosAusentes);
     }
-    const checkIfExistsISBN = await livrosRepository.existByISBN(ISBN);
+    const checkIfExistsISBN = await livrosRepository.existePorISBN(ISBN);
     if (checkIfExistsISBN) {
       return Either.Left(Either.valueAlreadyRegister('ISBN'));
     }

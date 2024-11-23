@@ -4,7 +4,7 @@ const cadastrarLivroUseCase = require('./cadastrar-livro.usecase');
 describe('Cadastrar Livro UseCase', function () {
   const livrosRepository = {
     cadastrar: jest.fn(),
-    existByISBN: jest.fn()
+    existePorISBN: jest.fn()
   };
   test('Deve poder cadastrar um livro', async function () {
     const livroDTO = {
@@ -36,7 +36,7 @@ describe('Cadastrar Livro UseCase', function () {
   });
 
   test('Deve retornar um Either.Left.valorJaCadastrado se um ISBN cadastrado para um livro', async function () {
-    livrosRepository.existByISBN.mockResolvedValue(true);
+    livrosRepository.existePorISBN.mockResolvedValue(true);
 
     const livroDTO = {
       nome: 'nome_valido',
@@ -51,7 +51,7 @@ describe('Cadastrar Livro UseCase', function () {
 
     expect(output.left).toEqual(Either.valueAlreadyRegister('ISBN'));
 
-    expect(livrosRepository.existByISBN).toHaveBeenCalledWith(livroDTO.ISBN);
-    expect(livrosRepository.existByISBN).toHaveBeenCalledTimes(1);
+    expect(livrosRepository.existePorISBN).toHaveBeenCalledWith(livroDTO.ISBN);
+    expect(livrosRepository.existePorISBN).toHaveBeenCalledTimes(1);
   });
 });
