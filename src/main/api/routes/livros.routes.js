@@ -19,6 +19,7 @@ livrosRoutes.get('/', async (request, response) => {
   };
 
   const { statusCode, body } = await buscarLivroPorNomeOuIsbnCompose(request);
+  return response.status(statusCode).json(body);
 });
 
 module.exports = { livrosRoutes };

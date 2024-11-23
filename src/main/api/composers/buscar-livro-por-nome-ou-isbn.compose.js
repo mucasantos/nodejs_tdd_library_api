@@ -8,7 +8,7 @@ module.exports = async function buscarLivroPorNomeOuISBNCompose(httpRequest) {
   const buscarLivroPorNomeOuISBNUseCaseFn = buscarLivrosPorNomeOuIsbnUsecase({
     livrosRepository: livrosRepositoryFn
   });
-  const controller = buscarLivroPorNomeOuIsbnController({
+  const controller = await buscarLivroPorNomeOuIsbnController({
     buscarLivroPorNomeOuISBNUseCase: buscarLivroPorNomeOuISBNUseCaseFn,
     httpRequest
   });
