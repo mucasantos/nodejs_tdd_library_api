@@ -42,7 +42,6 @@ const emprestimosRepository = function () {
     });
     return emprestimosPendentes;
   };
-
   const existeLivroISBNEmprestadoPendenteUsuario = async function ({ usuario_id, livro_id }) {
     const emprestimoLivro = await typeormEmprestimoRepository.count({
       where: {

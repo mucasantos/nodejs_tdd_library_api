@@ -1,4 +1,7 @@
 const {
+  typeormEmprestimoRepository
+} = require('../../../infra/db/typeorm/repositories/emprestimos.repository');
+const {
   typeormLivrosRepository
 } = require('../../../infra/db/typeorm/repositories/livros.repository');
 const { app } = require('../app');
@@ -6,6 +9,7 @@ const { app } = require('../app');
 const request = require('supertest');
 describe('Livros Routes', function () {
   beforeAll(async function () {
+    await typeormEmprestimoRepository.query('DELETE FROM emprestimos');
     await typeormLivrosRepository.query('DELETE FROM livros');
   });
   test('Deve ser possível cadastrar um livro', async () => {

@@ -7,7 +7,6 @@ emprestimosRoutes.post('/', async (request, response) => {
   const httpRequest = {
     body: request.body
   };
-
   const { statusCode, body } = await emprestarLivrosCompose(httpRequest);
 
   return response.status(statusCode).json(body);

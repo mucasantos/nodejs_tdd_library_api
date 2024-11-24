@@ -11,7 +11,7 @@ module.exports = function emprestarLivroUseCase({ emprestimoRepository, emailSer
       return Either.Left(Either.dataRetornoMenorQueDataSaida);
 
     const existLivroISBNEmprestadoPendenteUsuario =
-      await emprestimoRepository.existLivroISBNEmprestadoPendenteUsuario({ usuario_id, livro_id });
+      await emprestimoRepository.existeLivroISBNEmprestadoPendenteUsuario({ usuario_id, livro_id });
     if (existLivroISBNEmprestadoPendenteUsuario)
       return Either.Left(Either.existLivroISBNEmprestadoPendenteUsuario);
     const id = await emprestimoRepository.emprestar({
@@ -25,7 +25,7 @@ module.exports = function emprestarLivroUseCase({ emprestimoRepository, emailSer
     await emailService.enviarEmail({
       data_saida,
       data_retorno,
-      nome_usuario: usuario.nome,
+      nome_usuario: usuario.nome_completo,
       CPF: usuario.CPF,
       email: usuario.email,
       nome_livro: livro.nome

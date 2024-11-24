@@ -5,7 +5,7 @@ const emprestarLivrosUseCase = require('./emprestar-livros.usecase');
 describe('Emprestar livro UseCase', function () {
   const emprestimoRepository = {
     emprestar: jest.fn(),
-    existLivroISBNEmprestadoPendenteUsuario: jest.fn(),
+    existeLivroISBNEmprestadoPendenteUsuario: jest.fn(),
     buscarEmprestimoComLivroComUserPorID: jest.fn()
   };
 
@@ -63,7 +63,7 @@ describe('Emprestar livro UseCase', function () {
   });
 
   test('Não deve permitir o emprestimo de livro com o mesmo ISBN para o mesmo usuario antes que o livro anterior seja devolvido', async function () {
-    emprestimoRepository.existLivroISBNEmprestadoPendenteUsuario.mockResolvedValue(true);
+    emprestimoRepository.existeLivroISBNEmprestadoPendenteUsuario.mockResolvedValue(true);
     const emprestarLivroDTO = {
       usuario_id: 'qualquer_livro_id',
       livro_id: 'qualquer_usuario_id',
@@ -75,11 +75,11 @@ describe('Emprestar livro UseCase', function () {
     const output = await sut(emprestarLivroDTO);
 
     expect(output.left).toBe(Either.existLivroISBNEmprestadoPendenteUsuario);
-    expect(emprestimoRepository.existLivroISBNEmprestadoPendenteUsuario).toHaveBeenCalledWith({
+    expect(emprestimoRepository.existeLivroISBNEmprestadoPendenteUsuario).toHaveBeenCalledWith({
       livro_id: emprestarLivroDTO.livro_id,
       usuario_id: emprestarLivroDTO.usuario_id
     });
-    expect(emprestimoRepository.existLivroISBNEmprestadoPendenteUsuario).toHaveBeenCalledTimes(1);
+    expect(emprestimoRepository.existeLivroISBNEmprestadoPendenteUsuario).toHaveBeenCalledTimes(1);
   });
 
   test('DEve retornar um throw AppError se o emprestimoRepository nao for fornecido', () => {
