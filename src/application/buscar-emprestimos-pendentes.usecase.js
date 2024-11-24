@@ -4,7 +4,7 @@ module.exports = function buscarEmprestimosPendentesUseCase({ emprestimosReposit
   if (!emprestimosRepository) throw new AppError(AppError.dependenciasAusentes);
 
   return async function () {
-    const emprestimosPendentes = await emprestimosRepository.buscarLivrosPendentesComUsuario();
+    const emprestimosPendentes = await emprestimosRepository.buscarEmprestimosPententesComUser();
     return Either.Right(emprestimosPendentes);
   };
 };

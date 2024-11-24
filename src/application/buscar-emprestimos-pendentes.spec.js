@@ -4,11 +4,11 @@ const buscarEmprestimosPendentesUsecase = require('./buscar-emprestimos-pendente
 
 describe('', function () {
   const emprestimosRepository = {
-    buscarLivrosPendentesComUsuario: jest.fn()
+    buscarEmprestimosPententesComUser: jest.fn()
   };
 
   test('Deve ser possivel buscar os emprestimos pendentes', async () => {
-    emprestimosRepository.buscarLivrosPendentesComUsuario.mockResolvedValue(buscarPendentes);
+    emprestimosRepository.buscarEmprestimosPententesComUser.mockResolvedValue(buscarPendentes);
 
     const sut = buscarEmprestimosPendentesUsecase({ emprestimosRepository });
     const output = await sut();
