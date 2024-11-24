@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === 'test') {
     type: 'postgres',
     host: 'localhost',
     database: 'biblioteca',
-    synchronize: false,
+    synchronize: false, //Cuidado!! Isso aqui bagunça do DB. Nunca em modo de produção
     port: 5433,
     username: 'postgres',
     password: 'postgres',
