@@ -1,3 +1,4 @@
+const { sendMailQueue } = require('../infra/queue/bull');
 const { AppError, Either } = require('../shared');
 
 module.exports = function emprestarLivroUseCase({ emprestimoRepository, emailService }) {
@@ -22,13 +23,12 @@ module.exports = function emprestarLivroUseCase({ emprestimoRepository, emailSer
     });
     const { usuario, livro } = await emprestimoRepository.buscarEmprestimoComLivroComUserPorID(id);
 
-    await emailService.enviarEmail({
-      data_saida,
-      data_retorno,
+    await sendMailQueue.add({
+      data_saida: data_saida.toLocaleDateString('pt-BR', { timeZone: 'UTC' }),
+      data_retorno: data_retorno.toLocaleDateString('pt-BR', { timeZone: 'UTC' }),
       nome_usuario: usuario.nome_completo,
-      CPF: usuario.CPF,
-      email: usuario.email,
-      nome_livro: livro.nome
+      usuario,
+      livro
     });
     return Either.Right(null);
   };
