@@ -1,3 +1,4 @@
 node_modules
 coverage
 .env
+src/infra/db/typeorm/typeorm.prod.js
