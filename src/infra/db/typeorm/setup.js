@@ -24,6 +24,17 @@ if (process.env.NODE_ENV === 'test') {
     password: 'postgres',
     entities: [resolve(__dirname, 'entities/*.entity-typeorm.js')]
   });
+} else {
+  typeormServer = new typeorm.DataSource({
+    type: 'postgres',
+    host: 'localhost',
+    database: 'biblioteca',
+    synchronize: false,
+    port: 5433,
+    username: 'postgres',
+    password: 'postgres',
+    entities: [resolve(__dirname, 'entities/*.entity-typeorm.js')]
+  });
 }
 
 module.exports = { typeormServer };
