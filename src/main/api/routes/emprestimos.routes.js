@@ -12,4 +12,6 @@ emprestimosRoutes.post('/', async (request, response) => {
   return response.status(statusCode).json(body);
 });
 
+emprestimosRoutes.put('/devolver/:id');
+
 module.exports = { emprestimosRoutes };
