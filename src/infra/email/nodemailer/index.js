@@ -25,8 +25,6 @@ module.exports = function nodemailerService() {
       subject: 'Novo livro emprestado',
       text: `Olá ${nome_usuario}(${CPF}), você pegou o livro '${nome_livro}' emprestado no dia ${data_saida} e deverá retornar no dia ${data_retorno}`
     });
-
-    console.log(emailSent);
   };
   return { enviarEmail };
 };
