@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const emprestarLivrosCompose = require('../composers/emprestar-livros.compose');
 const devolveLivroCompose = require('../composers/devolve-livro.compose');
+const buscarEmprestimosPendentesCompose = require('../composers/buscar-emprestimos-pendentes.compose');
 
 const emprestimosRoutes = Router();
 
@@ -20,6 +21,12 @@ emprestimosRoutes.put('/devolver/:emprestimo_id', async (request, response) => {
   };
 
   const { statusCode, body } = await devolveLivroCompose(httpRequest);
+
+  return response.status(statusCode).json(body);
+});
+
+emprestimosRoutes.get('/', async (request, response) => {
+  const { statusCode, body } = await buscarEmprestimosPendentesCompose();
 
   return response.status(statusCode).json(body);
 });
