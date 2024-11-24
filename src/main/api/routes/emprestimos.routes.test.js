@@ -65,6 +65,6 @@ describe('Emprestimos Routes', function () {
       .send({ data_devolucao: '2024-02-16' });
 
     expect(statusCode).toBe(200);
-    expect(body).toBe('Multa por atraso: R$0');
+    expect(body).toBe('Multa por atraso: R$ 0');
   });
 });
