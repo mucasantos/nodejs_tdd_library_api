@@ -30,7 +30,7 @@ describe('Emprestimos Routes', function () {
     CPF: '123.123.123-12',
     endereco: 'end_valido',
     telefone: 'tel_valido',
-    email: 'mucasantos@icloud.com'
+    email: 'mucasantos@icloud.com.s'
   };
   test('Deve ser possivel emprestar um livro', async () => {
     const livro = await typeormLivrosRepository.save(livroDTO);
@@ -85,5 +85,14 @@ describe('Emprestimos Routes', function () {
 
     expect(statusCode).toBe(200);
     expect(body).toBe('Multa por atraso: R$ 10,00');
+  });
+
+  test('Deve retornar as mensagens de erro do ZOD', async () => {
+    const { statusCode, body } = await request(app).put(`/emprestimos/devolver/3`).send({});
+
+    expect(statusCode).toBe(400);
+    expect(body.error.fieldErrors).toEqual({
+      data_devolucao: ['Data devolução obrigaoria']
+    });
   });
 });
